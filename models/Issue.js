@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const issueSchema = new Schema({
-  title: {
+  issue_title: {
     type: String,
     required: true,
   },
-  text: {
+  issue_text: {
     type: String,
     required: true,
   },
@@ -17,6 +17,7 @@ const issueSchema = new Schema({
   created_on: {
     type: Date,
     default: Date.Now,
+    required: true,
   },
   updated_on: {
     type: Date,
@@ -28,6 +29,8 @@ const issueSchema = new Schema({
   status_text: {
     type: String,
   },
+  assigned_to: String,
 });
 
-moddule.exports = issueSchema;
+module.exports = issueSchema;
+// mongoose.model('issue', issueSchema);

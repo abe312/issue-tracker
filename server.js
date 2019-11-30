@@ -1,19 +1,17 @@
 'use strict';
 
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const expect = require('chai').expect;
 const cors = require('cors');
-
-const apiRoutes = require('./routes/api.js');
-const fccTestingRoutes = require('./routes/fcctesting.js');
 const runner = require('./test-runner');
 const helmet = require('helmet');
 
-require('dotenv').config();
 const mongoose = require('mongoose');
 
 require('./models/Project');
+// require('./models/Issue');
 mongoose
   .connect(process.env.DATABASE, {
     useNewUrlParser: true,
@@ -23,6 +21,7 @@ mongoose
   .catch(err => console.log(err));
 
 const app = express();
+app.use(helmet());
 
 app.use('/public', express.static(process.cwd() + '/public'));
 
@@ -42,9 +41,12 @@ app.route('/').get(function(req, res) {
 });
 
 //For FCC testing purposes
+const fccTestingRoutes = require('./routes/fcctesting.js');
 fccTestingRoutes(app);
 
 //Routing for API
+const apiRoutes = require('./routes/api.js');
+
 apiRoutes(app);
 
 //404 Not Found Middleware
@@ -58,7 +60,7 @@ app.use(function(req, res, next) {
 //Start our server and tests!
 // process.env.NODE_ENV = 'test';
 app.listen(process.env.PORT || 3000, function() {
-  console.log('Listening on port ' + process.env.PORT);
+  console.log('Listening on port ' + (process.env.PORT || 3000));
   if (process.env.NODE_ENV === 'test') {
     console.log('Running Tests...');
     setTimeout(function() {

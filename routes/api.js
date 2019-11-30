@@ -9,26 +9,24 @@
 'use strict';
 
 const expect = require('chai').expect;
-const mongoose = require('mongoose');
-const Project = mongoose.model('project');
+
+const {
+  getController,
+  postController,
+  putController,
+  deleteController,
+} = require('./projectControllers');
+const { catchErrors } = require('../hoc/catchErrors.js');
 
 module.exports = function(app) {
   app
     .route('/api/issues/:project')
 
-    .get(async function(req, res) {
-      const project = req.params.project;
-    })
+    .get(catchErrors(getController))
 
-    .post(function(req, res) {
-      const project = req.params.project;
-    })
+    .post(catchErrors(postController))
 
-    .put(function(req, res) {
-      const project = req.params.project;
-    })
+    .put(catchErrors(putController))
 
-    .delete(function(req, res) {
-      const project = req.params.project;
-    });
+    .delete(catchErrors(deleteController));
 };

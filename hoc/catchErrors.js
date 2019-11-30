@@ -4,6 +4,7 @@ exports.catchErrors = fn => {
   };
 };
 
+// use error route
 // catchErrors()
 
 /*
