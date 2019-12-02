@@ -3,19 +3,21 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-const expect = require('chai').expect;
+
 const cors = require('cors');
 const runner = require('./test-runner');
 const helmet = require('helmet');
 
 const mongoose = require('mongoose');
 
+require('./models/Issue');
 require('./models/Project');
-// require('./models/Issue');
+
 mongoose
   .connect(process.env.DATABASE, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
   })
   .then(() => console.log('mongoDb connected'))
   .catch(err => console.log(err));
@@ -29,6 +31,7 @@ app.use(cors({ origin: '*' })); //For FCC testing purposes only
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+const chai = require('chai');
 
 //Sample front-end
 app.route('/:project/').get(function(req, res) {

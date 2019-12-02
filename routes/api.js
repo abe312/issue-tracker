@@ -9,6 +9,7 @@
 'use strict';
 
 const expect = require('chai').expect;
+const { catchErrors } = require('../hoc/catchErrors.js');
 
 const {
   getController,
@@ -16,7 +17,6 @@ const {
   putController,
   deleteController,
 } = require('./projectControllers');
-const { catchErrors } = require('../hoc/catchErrors.js');
 
 module.exports = function(app) {
   app

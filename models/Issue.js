@@ -32,5 +32,5 @@ const issueSchema = new Schema({
   assigned_to: String,
 });
 
-module.exports = issueSchema;
-// mongoose.model('issue', issueSchema);
+// module.exports = issueSchema;
+mongoose.model('issue', issueSchema);
